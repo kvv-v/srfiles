@@ -49,13 +49,36 @@ func searchFiles(str, dir string) {
 	}
 }
 
+/*
+	Реализовать три варианта запуска программы:
+	1. С 1 аргументом - именем файла: ведет поиск в папке - месте исполнения
+	2. С 1 аргументом - путем нужной папке: выводит все файлы в этой папке
+	3. С 2 аргументами - обычный запуск программы
+	4. Без аргументов - вывод всех файлов в этой директории
+*/
 func main() {
+	startArgs := os.Args
+	var dir, srWord string
 
-	fmt.Print("Enter path to directory: ")
-	dir := readLine()
-
-	fmt.Print("Enter string: ")
-	srWord := readLine()
-
+	if len(startArgs) == 1 {
+		dir = "."
+		srWord = ""
+	} else if len(startArgs) == 2 {
+		if strings.HasPrefix(startArgs[1], "/") {
+			dir = startArgs[1]
+			srWord = ""
+		} else {
+			dir = "."
+			srWord = startArgs[1]
+		}
+	} else if len(startArgs) == 3 {
+		if strings.HasPrefix(startArgs[1], "/") {
+			dir = startArgs[1]
+			srWord = startArgs[2]
+		} else {
+			dir = startArgs[2]
+			srWord = startArgs[1]
+		}
+	}
 	searchFiles(srWord, dir)
 }
