@@ -1,3 +1,3 @@
-module srfile
+module srfiles
 
 go 1.16
